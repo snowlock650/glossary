@@ -2,3 +2,7 @@
 name = "indexer"
 version = "0.1.0"
 authors = ["Ray Liao <ray.liao@audatex.com>"]
+
+[dependencies]
+docopt = "0.6.70"
+rustc-serialize = "0.3"
