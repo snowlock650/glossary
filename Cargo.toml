@@ -1,0 +1,4 @@
+[package]
+name = "indexer"
+version = "0.1.0"
+authors = ["Ray Liao <ray.liao@audatex.com>"]
