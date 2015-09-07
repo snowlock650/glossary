@@ -10,3 +10,4 @@ path = "src/lib.rs"
 [dependencies]
 docopt = "0.6.70"
 rustc-serialize = "0.3"
+regex = "^0.1.0"
