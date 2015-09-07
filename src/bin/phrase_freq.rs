@@ -29,12 +29,18 @@ fn main() {
 
 	println!("phrase_freq: {} {} {}", args.arg_textfile, args.arg_phrase, args.arg_output);
 	
-	let input_file = File::open(args.arg_textfile).ok().unwrap();
-	let mut input_reader = TextParser::new(input_file);
-	loop {
-		match input_reader.next() {
-			None => break,
-			Some(c) => println!("{}", c)
-		}
+	let mut input_file = File::open(args.arg_textfile).ok().unwrap();
+	
+	let input = match TextParser::new(&mut input_file) {
+		Ok(reader) => Some(reader),
+		Err(e) => None,
+	};
+	
+	unsafe {
+	if let Some(reader) = input {
+		for word in reader.words_iter() {
+			println!("{}", reader.buffer.slice_unchecked(word.0, word.1));
+		}	
+	}
 	}
 }
