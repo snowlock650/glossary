@@ -52,9 +52,14 @@ impl WordCountByFrame {
 	
 	pub fn get_word_counts(&mut self) -> &mut HashMap<String, Vec<i32>>
 	{
+		let frame_cnt = match self.curr_word_count {
+			0 => self.curr_frame,
+			_ => self.curr_frame + 1,
+		};
+		
 		//zero padding
 		for (_, array) in self.counter.iter_mut() {
-			for _ in array.len()..(self.curr_frame) {
+			for _ in array.len()..frame_cnt {
 				array.push(0);
 			}
 		}
