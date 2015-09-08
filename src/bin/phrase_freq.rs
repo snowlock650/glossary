@@ -32,15 +32,23 @@ fn main() {
 	let mut input_file = File::open(args.arg_textfile).ok().unwrap();
 	
 	let input = match TextParser::new(&mut input_file) {
-		Ok(reader) => Some(reader),
-		Err(e) => None,
+		Ok(parser) => Some(parser),
+		Err(e) => {
+			println!("Error opening file because {}", e);
+			None
+		},
 	};
 	
-	unsafe {
-	if let Some(reader) = input {
-		for word in reader.words_iter() {
-			println!("{}", reader.buffer.slice_unchecked(word.0, word.1));
-		}	
-	}
+	match input {
+		Some(mut parser) => {
+			let mut reader = parser.word_iter();
+			loop { 
+				match reader.next() {
+				None => break,
+				Some(word) => println!("{}", word),
+				}
+			}
+		}
+		None => (),
 	}
 }
