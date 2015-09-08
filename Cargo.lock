@@ -3,6 +3,7 @@ name = "indexer"
 version = "0.1.0"
 dependencies = [
  "docopt 0.6.72 (registry+https://github.com/rust-lang/crates.io-index)",
+ "itertools 0.3.25 (registry+https://github.com/rust-lang/crates.io-index)",
  "regex 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
  "rustc-serialize 0.3.16 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -24,6 +25,11 @@ dependencies = [
  "rustc-serialize 0.3.16 (registry+https://github.com/rust-lang/crates.io-index)",
  "strsim 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
+
+[[package]]
+name = "itertools"
+version = "0.3.25"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "libc"
