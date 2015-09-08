@@ -50,6 +50,17 @@ impl WordCountByFrame {
 		self.incr_word_count()
 	}
 	
+	pub fn get_word_counts(&mut self) -> &mut HashMap<String, Vec<i32>>
+	{
+		//zero padding
+		for (_, array) in self.counter.iter_mut() {
+			for _ in array.len()..(self.curr_frame) {
+				array.push(0);
+			}
+		}
+		&mut self.counter
+	}
+	
 	fn incr_word_count(&mut self) -> &WordCountByFrame {
 		self.curr_word_count += 1;
 		self.total_word_count += self.curr_word_count;
@@ -64,6 +75,7 @@ impl WordCountByFrame {
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use std::collections::hash_map::HashMap;
 	use std::collections::hash_map::Entry::{Vacant, Occupied};
 	
 	#[test]
@@ -80,9 +92,10 @@ mod tests {
 		}
 		
 		assert_eq!(counts.curr_frame, 4);
+		let counter: &mut HashMap<String, Vec<i32>> = counts.get_word_counts();
 		{
-			let ans = vec![2, 1]; //no zero padded
-			match counts.counter.entry("rabbit".to_string()) {
+			let ans = vec![2, 1, 0, 0]; 
+			match counter.entry("rabbit".to_string()) {
 				Vacant(_) => assert!(false),
 				Occupied(entry) => {
 					let array = entry.get();
@@ -96,7 +109,7 @@ mod tests {
 		}
 		{
 			let ans = vec![1, 1, 0, 3]; //no zero padded
-			match counts.counter.entry("dog".to_string()) {
+			match counter.entry("dog".to_string()) {
 				Vacant(_) => assert!(false),
 				Occupied(entry) => {
 					let array = entry.get();
