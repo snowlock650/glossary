@@ -37,7 +37,7 @@ fn count_words(input_file: &mut File, output_file: &mut File, est_frame_cnt: usi
 	if let Some(mut parser) = input {
 		let mut counts = WordCountByFrame::new(est_frame_cnt, frame_size);
 		for word in parser.word_iter() { 
-			counts.incr_word(word);
+			counts.incr_word(word.to_lowercase());
 		}
 
 		let counter = counts.get_word_counts();
